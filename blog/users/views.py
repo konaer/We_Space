@@ -5,6 +5,9 @@ import re
 from users.models import User
 from django.db import DatabaseError
 
+from django.shortcuts import redirect
+from django.urls import reverse
+
 class RegisterView(View):
     """用户注册"""
 
@@ -29,9 +32,9 @@ class RegisterView(View):
         # 判断手机号是否合法
         if not re.match(r'^1[3-9]\d{9}$', mobile):
             return HttpResponseBadRequest('请输入正确的手机号码')
-        # 判断密码是否是8-20个数字
-        if not re.match(r'^[0-9A-Za-z]{8,20}$', password):
-            return HttpResponseBadRequest('请输入8-20位的密码')
+        # 判断密码是否是6-20个数字
+        if not re.match(r'^[0-9A-Za-z]{6,20}$', password):
+            return HttpResponseBadRequest('请输入6-20位的密码')
         # 判断两次密码是否一致
         if password != password2:
             return HttpResponseBadRequest('两次输入的密码不一致')
@@ -50,8 +53,8 @@ class RegisterView(View):
         except DatabaseError:
             return HttpResponseBadRequest('注册失败')
 
-        # 响应注册结果
-        return HttpResponse('注册成功，重定向到首页')
+        # 响应注册结果,注册成功，返回首页
+        return redirect(reverse('home:index'))
 
 
 # 图片验证码
