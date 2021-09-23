@@ -67,6 +67,8 @@ class RegisterView(View):
 
         return response
 
+
+# login
 from django.views import View
 from django.contrib.auth import login
 from django.contrib.auth import authenticate
@@ -106,7 +108,12 @@ class LoginView(View):
         login(request, user)
 
         # 响应登录结果
-        response = redirect(reverse('home:index'))
+        next = request.GET.get('next')
+        if next:
+            response = redirect(next)
+        else:
+            response = redirect(reverse('home:index'))
+
 
         # 设置状态保持的周期
         if remember != 'on':
@@ -269,6 +276,22 @@ class SmsCodeView(View):
         # 响应结果
         return JsonResponse({'code': RETCODE.OK, 'errmsg': '发送短信成功'})
 
+# 用户中心展示
+from django.contrib.auth.mixins import LoginRequiredMixin
+class UserCenterView(LoginRequiredMixin,View):
+
+    def get(self,request):
+        # 获取用户信息
+        user = request.user
+
+        #组织模板渲染数据
+        context = {
+            'username': user.username,
+            'mobile': user.mobile,
+            'avatar': user.avatar.url if user.avatar else None,
+            'user_desc': user.user_desc
+        }
+        return render(request,'center.html',context=context)
 
 
 

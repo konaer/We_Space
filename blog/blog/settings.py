@@ -195,4 +195,9 @@ LOGGING = {
     }
 }
 
+
 AUTH_USER_MODEL = 'users.User'
+
+
+# 设置未登录用户跳转的路由
+LOGIN_URL = '/login/'
