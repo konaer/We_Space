@@ -5,14 +5,14 @@ var vm = new Vue({
     data: {
         host,
         show_menu:false,
-        is_login:false,
+        is_login:true,
         username:''
     },
-    mounted: function(){
+    mounted(){
         //获取用户名信息
-        this.username = getCookie('username');
+        this.username=getCookie('username');
         //获取是否登录信息
-        this.is_login = getCookie('is_login');
+        this.is_login=getCookie('is_login');
     },
     methods: {
         //显示下拉菜单
