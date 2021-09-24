@@ -37,7 +37,7 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="display: block" v-show="show_menu">
                     <a class="dropdown-item" href="{% url 'users:writeblog' %}">写文章</a>
                     <a class="dropdown-item" href='{% url 'users:center'%}'>个人信息</a>
-                    <a class="dropdown-item" href='{% url 'users:center' %}'>退出登录</a>
+                    <a class="dropdown-item" href='{% url 'users:logout' %}'>退出登录</a>
                 </div>
             </li>
             <!-- 如果用户未登录，则显示登录按钮 -->
@@ -55,6 +55,7 @@
             <br>
             <!-- 提交文章的表单 -->
             <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
                 <!-- 文章标题图 -->
                 <div class="form-group">
                     <label for="avatar">标题图</label>
@@ -71,16 +72,11 @@
                 
                 <!-- 文章栏目 -->
                 <div class="form-group">
-                    <label for="category">栏目</label>
+                    <label for="column">栏目</label>
                     <select class="form-control col-3" id="category" name="category">
-                            <option value="none">请选择栏目..</option>
-                        
-                            <option value="1">Django</option>
-                        
-                            <option value="2">Java</option>
-                        
-                            <option value="3">HTML</option>
-                        
+                            {% for category in categories %}
+                                <option value="{{ category.id }}">{{ category.title }}</option>
+                            {% endfor %}
                     </select>
                 </div>
 
@@ -94,9 +90,9 @@
                 <!-- 文章摘要 -->
                 <div class="form-group">
                     <!-- 标签 -->
-                    <label for="sumary">文章摘要</label>
+                    <label for="summary">文章摘要</label>
                     <!-- 文本框 -->
-                    <input type="text" class="form-control" id="sumary" name="sumary">
+                    <input type="text" class="form-control" id="summary" name="summary">
                 </div>
                 <!-- 文章正文 -->
                 <div class="form-group">
