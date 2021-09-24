@@ -5,10 +5,10 @@ var vm = new Vue({
     data: {
         host,
         show_menu:false,
-        is_login:true,
+        is_login:false,
         username:''
     },
-    mounted(){
+    mounted: function(){
         //获取用户名信息
         this.username = getCookie('username');
         //获取是否登录信息

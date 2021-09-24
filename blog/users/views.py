@@ -58,7 +58,7 @@ class RegisterView(View):
         login(request, user)
 
         # 跳转到首页
-        response = redirect(reverse('home:index'))
+        response = redirect(reverse('users:center'))
         # 设置cookie
         # 登录状态，会话结束后自动过期
         response.set_cookie('is_login', True)
@@ -113,7 +113,6 @@ class LoginView(View):
             response = redirect(next)
         else:
             response = redirect(reverse('home:index'))
-
 
         # 设置状态保持的周期
         if remember != 'on':
