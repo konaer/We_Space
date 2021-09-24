@@ -293,6 +293,38 @@ class UserCenterView(LoginRequiredMixin,View):
         }
         return render(request,'center.html',context=context)
 
+    def post(self, request):
+        # 接收数据
+        user = request.user
+        avatar = request.FILES.get('avatar')
+        username = request.POST.get('username', user.username)
+        user_desc = request.POST.get('desc', user.user_desc)
+
+        # 修改数据库数据
+        try:
+            user.username = username
+            user.user_desc = user_desc
+            if avatar:
+                user.avatar = avatar
+            user.save()
+        except Exception as e:
+            logger.error(e)
+            return HttpResponseBadRequest('更新失败，请稍后再试')
+
+        # 返回响应，刷新页面
+        response = redirect(reverse('users:center'))
+        # 更新cookie信息
+        response.set_cookie('username', user.username, max_age=30 * 24 * 3600)
+        return response
+
+
+class WriteBlogView(LoginRequiredMixin,View):
+
+    def get(self,request):
+
+        return render(request,'write_blog.html')
+
+
 
 
 
