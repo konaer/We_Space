@@ -275,8 +275,9 @@ class SmsCodeView(View):
         # 响应结果
         return JsonResponse({'code': RETCODE.OK, 'errmsg': '发送短信成功'})
 
-# 用户中心展示
+# user center view
 from django.contrib.auth.mixins import LoginRequiredMixin
+
 class UserCenterView(LoginRequiredMixin,View):
 
     def get(self,request):

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <!-- 网站主语言 -->
-<html lang="zh-cn">
+<html lang="en">
 
 <head>
     <!-- 网站采用的字符编码 -->
     <meta charset="utf-8">
     <!-- 网站标题 -->
-    <title>登录</title>
+    <title>login</title>
 
     {% load static %}
     <!-- 引入bootstrap的css文件 -->
@@ -25,7 +25,7 @@
     <div class="container">
         <!-- 导航栏商标 -->
         <div>
-            <a class="navbar-brand" href="{% url 'home:index' %}">个人博客</a>
+            <a class="navbar-brand" href="{% url 'home:index' %}">We Space</a>
         </div>
     </div>
     <div class="navbar-collapse">
@@ -39,22 +39,22 @@
                 <form class="login" id="login_form" method="POST">
                     {% csrf_token %}
                     <div class="form-group">
-                        <label for="id_login">账号: </label>
-                        <input type="text" name="mobile" placeholder="请输入手机号" autofocus="autofocus" required id="id_login" class="form-control" v-model="mobile" @blur="check_mobile"/>
-                        <small class="form-text text-muted ml-1">还没有账号？<a href="{% url 'users:register' %}" style="color: cornflowerblue; ">注册新账号</a>
+                        <label for="id_login">Email: </label>
+                        <input type="text" name="mobile" placeholder="Please enter your email" autofocus="autofocus" required id="id_login" class="form-control" v-model="mobile" @blur="check_mobile"/>
+                        <small class="form-text text-muted ml-1">Don't have an account？<a href="{% url 'users:register' %}" style="color: cornflowerblue; ">Register new account</a>
                         </small>
                     </div>
                     <div class="form-group mb-1">
-                        <label for="id_password">密码:</label>
-                        <input type="password" name="password" placeholder="请输入密码" required id="id_password" class="form-control" v-model="password" @blur="check_password"/>
-                        <small class="form-text text-muted ml-1"><a class="secondaryAction layui-text" href="{% url 'users:forgetpassword' %}">忘记密码?</a>
+                        <label for="id_password">Password:</label>
+                        <input type="password" name="password" placeholder="Please enter your password" required id="id_password" class="form-control" v-model="password" @blur="check_password"/>
+                        <small class="form-text text-muted ml-1"><a class="secondaryAction layui-text" href="{% url 'users:forgetpassword' %}">Forget your password?</a>
                         </small>
                     </div>
                     <div class="custom-control custom-checkbox mb-2">
                         <input type="checkbox" name="remember" id="id_remember" checked class="custom-control-input" v-model="remembered"/>
-                        <label for="id_remember" class="custom-control-label">保持登录</label>
+                        <label for="id_remember" class="custom-control-label">Keep login in this device</label>
                     </div>
-                    <button class="primaryAction btn btn-primary" type="submit" id="submit_login" @click="on_submit">登录</button>
+                    <button class="primaryAction btn btn-primary" type="submit" id="submit_login" @click="on_submit">Login</button>
                 </form>
             </div>
         </div>
@@ -65,7 +65,7 @@
 <!-- Footer -->
 <footer class="py-3 bg-dark" id="footer">
     <div class="container">
-        <h5 class="m-0 text-center text-white">Copyright @ qiruihua</h5>
+        <h5 class="m-0 text-center text-white">Copyright @ Edward, dejingk@gmail.com</h5>
     </div>
 </footer>
 

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <!-- 网站主语言 -->
-<html lang="zh-cn">
+<html lang="en">
 
 <head>
     <!-- 网站采用的字符编码 -->
     <meta charset="utf-8">
     <!-- 网站标题 -->
-    <title>文章详情</title>
+    <title>Read articles</title>
     {% load static %}
     <!-- 引入bootstrap的css文件 -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
@@ -29,7 +29,7 @@
     <div class="container">
         <!-- 导航栏商标 -->
         <div>
-            <a class="navbar-brand" href="{% url 'home:index' %}">个人博客</a>
+            <a class="navbar-brand" href="{% url 'home:index' %}">We Space</a>
         </div>
         <!-- 分类 -->
         <div class="collapse navbar-collapse">
@@ -58,14 +58,14 @@
             <li class="nav-item dropdown" v-if="is_login">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="show_menu_click">[[username]]</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="display: block" v-show="show_menu">
-                    <a class="dropdown-item" href="{% url 'users:writeblog' %}">写文章</a>
-                    <a class="dropdown-item" href='{% url 'users:center' %}'>个人信息</a>
-                    <a class="dropdown-item" href='{% url 'users:logout' %}'>退出登录</a>
+                    <a class="dropdown-item" href="{% url 'users:writeblog' %}">Write Blog</a>
+                    <a class="dropdown-item" href='{% url 'users:center' %}'>Profile</a>
+                    <a class="dropdown-item" href='{% url 'users:logout' %}'>Logout</a>
                 </div>
             </li>
 
             <li class="nav-item" v-else>
-                <a class="nav-link" href="{% url 'users:login' %}">登录</a>
+                <a class="nav-link" href="{% url 'users:login' %}">Login</a>
             </li>
 
         </ul>
@@ -79,7 +79,7 @@
         <div class="col-9">
             <!-- 标题及作者 -->
             <h1 class="mt-4 mb-4">{{ article.title }}</h1>
-            <div class="alert alert-success"><div>作者：<span>{{ article.author.username }}</span></div><div>浏览：{{ article.total_views }}</div></div>
+            <div class="alert alert-success"><div>Author：<span>{{ article.author.username }}</span></div><div>Pageview：{{ article.total_views }}</div></div>
             <!-- 文章正文 -->
             <div class="col-12" style="word-break: break-all;word-wrap: break-word;">
                 <p><p>{{ article.content|safe }}</p></p>
@@ -88,14 +88,14 @@
             <!-- 发表评论 -->
             <hr>
             <br>
-            <h5 class="row justify-content-center" v-show="!is_login">请<a href={% url 'users:login' %}>登录</a>后回复
+            <h5 class="row justify-content-center" v-show="!is_login">Please&nbsp<a href={% url 'users:login' %}> login </a>&nbspbefore reply.
             </h5>
             <br>
             <div>
                 <form method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="id" value="{{ article.id }}">
-                    <div class="form-group"><label for="body"><strong>我也要发言：</strong></label>
+                    <div class="form-group"><label for="body"><strong>Write a comment：</strong></label>
                         <div>
                             <div class="django-ckeditor-widget" data-field-id="id_body" style="display: inline-block;">
                                 <textarea cols="40" id="id_body" name="content" rows="10" required data-processed="0" :data-config="data_config" data-external-plugin-resources="[]" data-id="id_body" data-type="ckeditortype">
@@ -105,12 +105,12 @@
                         </div>
                     </div>
                     <!-- 提交按钮 -->
-                    <button type="submit" class="btn btn-primary ">发送</button>
+                    <button type="submit" class="btn btn-primary ">Submit</button>
                 </form>
             </div>
             <br>
             <!-- 显示评论 -->
-            <h4>共有{{ total_count }}条评论</h4>
+            <h4>Total {{ total_count }} comments</h4>
             <div class="row">
                  {% for comment in comments %}
                     <div class="col-12" >
@@ -131,7 +131,7 @@
         <!-- 推荐 -->
         <div class="col-3 mt-4" id="sidebar" class="sidebar">
             <div class="sidebar__inner">
-                    <h4><strong>推荐</strong></h4>
+                    <h4><strong>Hot Articles</strong></h4>
                     <hr>
                     {% for hot_article in hot_articles %}
                          <a href="{% url 'home:detail' %}?id={{ hot_article.id }}" style="color: black">{{ hot_article.title }}</a><br>
@@ -145,7 +145,7 @@
 <!-- Footer -->
 <footer class="py-3 bg-dark" id="footer">
     <div class="container">
-        <h5 class="m-0 text-center text-white">Copyright @ qiruihua</h5>
+        <h5 class="m-0 text-center text-white">Copyright @ Edward, dejingk@gmail.com</h5>
     </div>
 </footer>
 </div>

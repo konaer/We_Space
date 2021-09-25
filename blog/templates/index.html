@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <!-- 网站主语言 -->
-<html lang="zh-cn">
+<html lang="en">
 <head>
     <!-- 网站采用的字符编码 -->
     <meta charset="utf-8">
     <!-- 网站标题 -->
-    <title>首页</title>
+    <title>main page</title>
     {% load static %}
     <!-- 引入bootstrap的css文件 -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
@@ -29,7 +29,7 @@
     <div class="container">
         <!-- 导航栏商标 -->
         <div>
-            <a class="navbar-brand" href="{% url 'home:index' %}">个人博客</a>
+            <a class="navbar-brand" href="{% url 'home:index' %}">We Space</a>
         </div>
         <!-- 分类 -->
         <div class="collapse navbar-collapse">
@@ -57,14 +57,14 @@
                 <li class="nav-item dropdown" v-if="is_login">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="show_menu_click">[[username]]</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="display: block" v-show="show_menu">
-                        <a class="dropdown-item" href="{% url 'users:writeblog' %}">写文章</a>
-                        <a class="dropdown-item" href='{% url 'users:center' %}'>个人信息</a>
-                        <a class="dropdown-item" href='{% url 'users:logout' %}'>退出登录</a>
+                        <a class="dropdown-item" href="{% url 'users:writeblog' %}">Write Blog</a>
+                        <a class="dropdown-item" href='{% url 'users:center' %}'>Profile</a></a>
+                        <a class="dropdown-item" href='{% url 'users:logout' %}'>Logout</a>
                     </div>
                 </li>
                 <!-- 如果用户未登录，则显示登录按钮 -->
                 <li class="nav-item" v-else>
-                    <a class="nav-link" href="{% url 'users:login' %}">登录</a>
+                    <a class="nav-link" href="{% url 'users:login' %}">Login</a>
                 </li>
             </ul>
         </div>
@@ -118,7 +118,7 @@
 <!-- Footer -->
 <footer class="py-3 bg-dark" id="footer">
     <div class="container">
-        <h5 class="m-0 text-center text-white">Copyright @ qiruihua</h5>
+        <h5 class="m-0 text-center text-white">Copyright @ Edward, dejingk@gmail.com</h5>
     </div>
 </footer>
 </div>
@@ -134,7 +134,7 @@
            currentPage: {{ page_num }},
             totalPage: {{ total_page }},
             callback:function (current) {
-                location.href = '/detail/?id={{ article.id }}&page_size={{ page_size }}&page_num='+current;
+                location.href = '/?cat_id={{ category.id }}&page_size={{ page_size }}&page_num='+current;
             }
         })
     });

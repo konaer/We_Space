@@ -12,7 +12,7 @@ class IndexView(View):
         # ?cat_id=xxx&page_num=xxx&page_size=xxx
         cat_id = request.GET.get('cat_id', 1)
         page_num = request.GET.get('page_num', 1)
-        page_size = request.GET.get('page_size', 10)
+        page_size = request.GET.get('page_size', 6)
         # 判断分类id
         try:
             category = ArticleCategory.objects.get(id=cat_id)
