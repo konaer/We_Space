@@ -46,7 +46,7 @@
                     <div class="form-group">
                         <label >Email: </label>
                         <div class="col-lg-6">
-                            <input type="text" name="mobile" placeholder="Please enter your email" autofocus="autofocus" required
+                            <input type="text" name="mobile" placeholder="Enter email" autofocus="autofocus" required
                                    id="id_login" class="form-control" v-model="mobile" />
                         </div>
                         <small class="form-text text-muted ml-1" v-show="mobile_error" >[[mobile_error_message]]</small>
@@ -55,7 +55,7 @@
                     <div class="form-group">
                         <label >Password:</label>
                         <div class="col-lg-6">
-                            <input type="password" name="password" placeholder="please set up your password here" required  class="form-control" v-model="password" @blur="check_password" />
+                            <input type="password" name="password" placeholder="Enter password" required  class="form-control" v-model="password" @blur="check_password" />
                         </div>
                         <small class="form-text text-muted ml-1" v-show="password_error" >[[password_error_message]]</small>
                     </div>
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <label >Repeat Password:</label>
                         <div class="col-lg-6">
-                            <input type="password" name="password2" placeholder="Please re-enter your password here" required  class="form-control" v-model="password2" @blur="check_password2"/>
+                            <input type="password" name="password2" placeholder="Re-enter password" required  class="form-control" v-model="password2" @blur="check_password2"/>
                         </div>
                         <small class="form-text text-muted ml-1" v-show="password2_error" >[[password2_error_message]]</small>
                     </div>
@@ -72,7 +72,7 @@
                         <label >Verification code:</label>
                         <div class="row" style="margin-right:5px;margin-left:0px">
                             <div class="col-lg-6">
-                                <input type="text" name="image_code" placeholder="Please enter the code in the photo" required  class="form-control" v-model="image_code" @blur="check_image_code"/>
+                                <input type="text" name="image_code" placeholder="Enter the code in photo" required  class="form-control" v-model="image_code" @blur="check_image_code"/>
                             </div>
                             <img :src="image_code_url" @click="generate_image_code" alt="" style="width: 110px;height: 40px;">
                             <small class="form-text text-muted ml-1" v-show="image_code_error" >[[image_code_error_message]]</small>
@@ -83,7 +83,7 @@
                         <label >SMS verification:</label>
                         <div class="row" style="margin-right:5px;margin-left:0px">
                             <div class="col-lg-6">
-                                <input type="text" name="sms_code" placeholder="Please enter the code" required  class="form-control" v-model="sms_code" @blur="check_sms_code"/>
+                                <input type="text" name="sms_code" placeholder="Enter the code" required  class="form-control" v-model="sms_code" @blur="check_sms_code"/>
                             </div>
                             <span class="primaryAction btn btn-primary" @click="send_sms_code">[[sms_code_message]]</span>
                             <small class="form-text text-muted ml-1" v-show="sms_code_error" >[[sms_code_error_message]]</small>

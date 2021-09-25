@@ -29,30 +29,30 @@ class RegisterView(View):
 
         # 判断参数是否齐全
         if not all([mobile, password, password2, smscode]):
-            return HttpResponseBadRequest('缺少必传参数')
+            return HttpResponseBadRequest('One or more parameters missing, please go back and re-try')
         # 判断手机号是否合法
         if not re.match(r'^1[3-9]\d{9}$', mobile):
-            return HttpResponseBadRequest('请输入正确的手机号码')
+            return HttpResponseBadRequest('Please enter correct email and re-try')
         # 判断密码是否是6-20个数字
         if not re.match(r'^[0-9A-Za-z]{6,20}$', password):
-            return HttpResponseBadRequest('请输入6-20位的密码')
+            return HttpResponseBadRequest('Please enter a password from 6 to 20 digits and re-try')
         # 判断两次密码是否一致
         if password != password2:
-            return HttpResponseBadRequest('两次输入的密码不一致')
+            return HttpResponseBadRequest('Two password not match each other, please re-try')
 
         #验证短信验证码
         redis_conn = get_redis_connection('default')
         sms_code_server = redis_conn.get('sms:%s' % mobile)
         if sms_code_server is None:
-            return HttpResponseBadRequest('短信验证码已过期')
+            return HttpResponseBadRequest('SMS code expired, please re-try')
         if smscode != sms_code_server.decode():
-            return HttpResponseBadRequest('短信验证码错误')
+            return HttpResponseBadRequest('SMS code error, please er-try')
 
         # 保存注册数据
         try:
             user=User.objects.create_user(username=mobile,mobile=mobile, password=password)
         except DatabaseError:
-            return HttpResponseBadRequest('注册失败')
+            return HttpResponseBadRequest('Register failed, please re-try')
 
         # 实现状态保持
         login(request, user)
@@ -87,22 +87,22 @@ class LoginView(View):
         # 校验参数
         # 判断参数是否齐全
         if not all([mobile, password]):
-            return HttpResponseBadRequest('缺少必传参数')
+            return HttpResponseBadRequest('one or more parameters missing, please re-try')
 
         # 判断手机号是否正确
         if not re.match(r'^1[3-9]\d{9}$', mobile):
-            return HttpResponseBadRequest('请输入正确的手机号')
+            return HttpResponseBadRequest('Please enter correct email and re-try')
 
         # 判断密码是否是8-20个数字
         if not re.match(r'^[0-9A-Za-z]{8,20}$', password):
-            return HttpResponseBadRequest('密码最少8位，最长20位')
+            return HttpResponseBadRequest('Password must 6 to 20 digits long, please re-try')
 
         # 认证登录用户
         # 认证字段已经在User模型中的USERNAME_FIELD = 'mobile'修改
         user = authenticate(mobile=mobile, password=password)
 
         if user is None:
-            return HttpResponseBadRequest('用户名或密码错误')
+            return HttpResponseBadRequest('Email or password error, please er-try')
 
         # 实现状态保持
         login(request, user)
@@ -162,27 +162,27 @@ class ForgetPasswordView(View):
 
         # 判断参数是否齐全
         if not all([mobile, password, password2, smscode]):
-            return HttpResponseBadRequest('缺少必传参数')
+            return HttpResponseBadRequest('one or more parameters missing, please re-try')
 
         # 判断手机号是否合法
         if not re.match(r'^1[3-9]\d{9}$', mobile):
-            return HttpResponseBadRequest('请输入正确的手机号码')
+            return HttpResponseBadRequest('Please enter a correct email and re-try')
 
         # 判断密码是否是8-20个数字
         if not re.match(r'^[0-9A-Za-z]{6,20}$', password):
-            return HttpResponseBadRequest('请输入6-20位的密码')
+            return HttpResponseBadRequest('Password must be 6 to 20 digits, please re-try')
 
         # 判断两次密码是否一致
         if password != password2:
-            return HttpResponseBadRequest('两次输入的密码不一致')
+            return HttpResponseBadRequest('Password not match, please re-try')
 
         # 验证短信验证码
         redis_conn = get_redis_connection('default')
         sms_code_server = redis_conn.get('sms:%s' % mobile)
         if sms_code_server is None:
-            return HttpResponseBadRequest('短信验证码已过期')
+            return HttpResponseBadRequest('SMS code expired, please re-try')
         if smscode != sms_code_server.decode():
-            return HttpResponseBadRequest('短信验证码错误')
+            return HttpResponseBadRequest('SMS code error, please re-try')
 
         # 根据手机号查询数据
         try:
@@ -192,7 +192,7 @@ class ForgetPasswordView(View):
             try:
                 User.objects.create_user(username=mobile, mobile=mobile, password=password)
             except Exception:
-                return HttpResponseBadRequest('修改失败，请稍后再试')
+                return HttpResponseBadRequest('Failed, please try again')
         else:
             # 修改用户密码
             user.set_password(password)
@@ -217,7 +217,7 @@ class ImageCodeView(View):
         uuid=request.GET.get('uuid')
         #判断参数是否为None
         if uuid is None:
-            return HttpResponseBadRequest('请求参数错误')
+            return HttpResponseBadRequest('parameter error')
         # 获取验证码内容和验证码图片二进制数据
         text, image = captcha.generate_captcha()
         # 将图片验内容保存到redis中，并设置过期时间
@@ -244,7 +244,7 @@ class SmsCodeView(View):
 
         # 校验参数
         if not all([image_code_client, uuid,mobile]):
-            return JsonResponse({'code': RETCODE.NECESSARYPARAMERR, 'errmsg': '缺少必传参数'})
+            return JsonResponse({'code': RETCODE.NECESSARYPARAMERR, 'errmsg': 'one or more parameters missing'})
 
         # 创建连接到redis的对象
         redis_conn = get_redis_connection('default')
@@ -252,7 +252,7 @@ class SmsCodeView(View):
         image_code_server = redis_conn.get('img:%s' % uuid)
         if image_code_server is None:
             # 图形验证码过期或者不存在
-            return JsonResponse({'code': RETCODE.IMAGECODEERR, 'errmsg': '图形验证码失效'})
+            return JsonResponse({'code': RETCODE.IMAGECODEERR, 'errmsg': 'Photo verification error'})
         # 删除图形验证码，避免恶意测试图形验证码
         try:
             redis_conn.delete('img:%s' % uuid)
@@ -261,7 +261,7 @@ class SmsCodeView(View):
         # 对比图形验证码
         image_code_server = image_code_server.decode()  # bytes转字符串
         if image_code_client.lower() != image_code_server.lower():  # 转小写后比较
-            return JsonResponse({'code': RETCODE.IMAGECODEERR, 'errmsg': '输入图形验证码有误'})
+            return JsonResponse({'code': RETCODE.IMAGECODEERR, 'errmsg': 'Wrong code, please re-try'})
 
         # 生成短信验证码：生成6位数验证码
         sms_code = '%06d' % randint(0, 999999)
@@ -273,7 +273,7 @@ class SmsCodeView(View):
         CCP().send_template_sms(mobile, [sms_code, 5],1)
 
         # 响应结果
-        return JsonResponse({'code': RETCODE.OK, 'errmsg': '发送短信成功'})
+        return JsonResponse({'code': RETCODE.OK, 'errmsg': 'SMS code sent successfully'})
 
 # user center view
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -309,7 +309,7 @@ class UserCenterView(LoginRequiredMixin,View):
             user.save()
         except Exception as e:
             logger.error(e)
-            return HttpResponseBadRequest('更新失败，请稍后再试')
+            return HttpResponseBadRequest('Failed, please re-try')
 
         # 返回响应，刷新页面
         response = redirect(reverse('users:center'))
@@ -342,13 +342,13 @@ class WriteBlogView(LoginRequiredMixin,View):
 
         # 验证数据是否齐全
         if not all([title, category_id, summary, content]):
-            return HttpResponseBadRequest('参数不全')
+            return HttpResponseBadRequest('one or more parameters missing, please fill all the blanks')
 
         # 判断文章分类id数据是否正确
         try:
             article_category = ArticleCategory.objects.get(id=category_id)
         except ArticleCategory.DoesNotExist:
-            return HttpResponseBadRequest('没有此分类信息')
+            return HttpResponseBadRequest('No such category')
 
         # 保存到数据库
         try:
@@ -363,7 +363,7 @@ class WriteBlogView(LoginRequiredMixin,View):
             )
         except Exception as e:
             logger.error(e)
-            return HttpResponseBadRequest('发布失败，请稍后再试')
+            return HttpResponseBadRequest('Post failed, please re-try')
 
         # 返回响应，跳转到文章详情页面
         # 暂时先跳转到首页
