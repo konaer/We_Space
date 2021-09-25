@@ -12,12 +12,12 @@ class IndexView(View):
         # ?cat_id=xxx&page_num=xxx&page_size=xxx
         cat_id = request.GET.get('cat_id', 1)
         page_num = request.GET.get('page_num', 1)
-        page_size = request.GET.get('page_size', 10)
+        page_size = request.GET.get('page_size', 6)
         # 判断分类id
         try:
             category = ArticleCategory.objects.get(id=cat_id)
         except ArticleCategory.DoesNotExist:
-            return HttpResponseNotFound('没有此分类')
+            return HttpResponseNotFound('No such category')
 
         # 获取博客分类信息
         categories = ArticleCategory.objects.all()
@@ -121,7 +121,7 @@ class DetailView(View):
             try:
                 article = Article.objects.get(id=id)
             except Article.DoesNotExist:
-                return HttpResponseNotFound('没有此文章')
+                return HttpResponseNotFound('No such article')
 
             # 保存到数据
             Comment.objects.create(

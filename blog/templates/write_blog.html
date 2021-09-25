@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <!-- 网站主语言 -->
-<html lang="zh-cn">
+<html lang="en">
 
 <head>
     <!-- 网站采用的字符编码 -->
     <meta charset="utf-8">
     <!-- 网站标题 -->
-    <title> 写文章 </title>
+    <title> write blog </title>
     {% load static %}
     <!-- 引入bootstrap的css文件 -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
@@ -25,7 +25,7 @@
     <div class="container">
         <!-- 导航栏商标 -->
         <div>
-            <a class="navbar-brand" href="{% url 'home:index' %}">个人博客</a>
+            <a class="navbar-brand" href="{% url 'home:index' %}">We Space</a>
         </div>
     </div>
     <!--登录/个人中心-->
@@ -35,14 +35,14 @@
             <li class="nav-item dropdown" v-if="is_login">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" @click="show_menu_click">[[username]]</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="display: block" v-show="show_menu">
-                    <a class="dropdown-item" href="{% url 'users:writeblog' %}">写文章</a>
-                    <a class="dropdown-item" href='{% url 'users:center'%}'>个人信息</a>
-                    <a class="dropdown-item" href='{% url 'users:logout' %}'>退出登录</a>
+                    <a class="dropdown-item" href="{% url 'users:writeblog' %}">Write Blog</a>
+                    <a class="dropdown-item" href='{% url 'users:center'%}'>Profile</a>
+                    <a class="dropdown-item" href='{% url 'users:logout' %}'>Logout</a>
                 </div>
             </li>
             <!-- 如果用户未登录，则显示登录按钮 -->
             <li class="nav-item" v-else>
-                <a class="nav-link" href="{% url 'users:login' %}">登录</a>
+                <a class="nav-link" href="{% url 'users:login' %}">Login</a>
             </li>
         </ul>
     </div>
@@ -58,21 +58,21 @@
             {% csrf_token %}
                 <!-- 文章标题图 -->
                 <div class="form-group">
-                    <label for="avatar">标题图</label>
+                    <label for="avatar">Avatar</label>
                     <input type="file" class="form-control-file" name="avatar" id="avatar" >
                 </div>
 
                 <!-- 文章标题 -->
                 <div class="form-group">
                     <!-- 标签 -->
-                    <label for="title">文章标题</label>
+                    <label for="title">Title</label>
                     <!-- 文本框 -->
                     <input type="text" class="form-control" id="title" name="title">
                 </div>
                 
                 <!-- 文章栏目 -->
                 <div class="form-group">
-                    <label for="column">栏目</label>
+                    <label for="column">Category</label>
                     <select class="form-control col-3" id="category" name="category">
                             {% for category in categories %}
                                 <option value="{{ category.id }}">{{ category.title }}</option>
@@ -83,27 +83,27 @@
                 <!-- 文章标签 -->
                 <div class="form-group">
                     <!-- 标签 -->
-                    <label for="tags">标签</label>
+                    <label for="tags">Tag</label>
                     <!-- 文本框 -->
                     <input type="text" class="form-control col-3" id="tags" name="tags" >
                 </div>
                 <!-- 文章摘要 -->
                 <div class="form-group">
                     <!-- 标签 -->
-                    <label for="summary">文章摘要</label>
+                    <label for="summary">Summary</label>
                     <!-- 文本框 -->
                     <input type="text" class="form-control" id="summary" name="summary">
                 </div>
                 <!-- 文章正文 -->
                 <div class="form-group">
-                    <label for="body">文章正文</label>
+                    <label for="body">Article</label>
                     <!-- 文本区域 -->
                     <!--<textarea type="text" class="form-control" id="body" name="body" rows="12"></textarea>-->
                     <textarea cols="40" id="id_body" name="content" rows="10" required data-processed="0" :data-config="data_config" data-external-plugin-resources="[]" data-id="id_body" data-type="ckeditortype">
                         </textarea>
                 </div>
                 <!-- 提交按钮 -->
-                <button type="submit" class="btn btn-primary">完成</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
@@ -112,7 +112,7 @@
 <!-- Footer -->
 <footer class="py-3 bg-dark" id="footer">
     <div class="container">
-        <h5 class="m-0 text-center text-white">Copyright @ qiruihua</h5>
+        <h5 class="m-0 text-center text-white">Copyright @ Edward, dejingk@gmail.com</h5>
     </div>
 </footer>
 </div>
