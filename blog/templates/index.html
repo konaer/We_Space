@@ -131,10 +131,10 @@
 <script type="text/javascript">
     $(function () {
         $('#pagination').pagination({
-            homePage: 'FrontPage',
-            endPage: 'EndPage',
-            prevContent:'Last',
-            nextContent: 'Next',
+            homePageText:"Front",
+            endPageText:"End",
+            prevPageText:"Last Page",
+            nextPageText:"Next Page",
             currentPage: {{ page_num }},
             totalPage: {{ total_page }},
             callback:function (current) {
