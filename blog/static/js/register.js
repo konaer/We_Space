@@ -10,7 +10,7 @@ var vm = new Vue({
         mobile_error_message:'Email format error',
         password:'',
         password_error:false,
-        password_error_message:'Password format error, must contain letter and number, 6 to 20 digit',
+        password_error_message:'Password format error',
         password2:'',
         password2_error:false,
         password2_error_message:'Password not match',
