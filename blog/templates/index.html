@@ -131,7 +131,11 @@
 <script type="text/javascript">
     $(function () {
         $('#pagination').pagination({
-           currentPage: {{ page_num }},
+            homePage: 'FrontPage',
+            endPage: 'EndPage',
+            prevContent:'Last',
+            nextContent: 'Next',
+            currentPage: {{ page_num }},
             totalPage: {{ total_page }},
             callback:function (current) {
                 location.href = '/?cat_id={{ category.id }}&page_size={{ page_size }}&page_num='+current;
