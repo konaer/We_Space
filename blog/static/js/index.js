@@ -16,8 +16,8 @@ var vm = new Vue({
     },
     methods: {
         //显示下拉菜单
-        show_menu_click:function(){
-            this.show_menu = !this.show_menu ;
+        show_menu_click:function(event){
+            this.show_menu = !this.show_menu;
         },
     }
 });
