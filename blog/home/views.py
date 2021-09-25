@@ -17,7 +17,7 @@ class IndexView(View):
         try:
             category = ArticleCategory.objects.get(id=cat_id)
         except ArticleCategory.DoesNotExist:
-            return HttpResponseNotFound('没有此分类')
+            return HttpResponseNotFound('No such category')
 
         # 获取博客分类信息
         categories = ArticleCategory.objects.all()
@@ -121,7 +121,7 @@ class DetailView(View):
             try:
                 article = Article.objects.get(id=id)
             except Article.DoesNotExist:
-                return HttpResponseNotFound('没有此文章')
+                return HttpResponseNotFound('No such article')
 
             # 保存到数据
             Comment.objects.create(
