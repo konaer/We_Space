@@ -6,7 +6,11 @@ var vm = new Vue({
         host,
         show_menu:false,
         mobile:'',
+        mobile_error:false,
+        mobile_error_message:'Email format error',
         password:'',
+        password_error:false,
+        password_error_message:'Password format error',
         remembered:'',
     },
     mounted(){
@@ -21,16 +25,26 @@ var vm = new Vue({
             this.show_menu = !this.show_menu ;
         },
         //检查手机号
-        check_mobile:function () {
-            
+        check_mobile: function(){
+            var re = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+            if (re.test(this.mobile)) {
+                this.mobile_error = false;
+            } else {
+                this.mobile_error = true;
+            }
         },
         //检查密码
-        check_mobile:function () {
-            
+        check_password:function () {
+
         },
         //提交
         on_submit:function () {
-            
+            this.check_mobile();
+
+            if (this.mobile_error == true) {
+                // 不满足注册条件：禁用表单
+                window.event.returnValue = false;
+            }
         }
     }
 });

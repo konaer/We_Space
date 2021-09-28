@@ -54,7 +54,7 @@ var vm = new Vue({
         },
         //检查手机号
         check_mobile: function(){
-            var re = /^1[3-9]\d{9}$/;
+            var re = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
             if (re.test(this.mobile)) {
                 this.mobile_error = false;
             } else {

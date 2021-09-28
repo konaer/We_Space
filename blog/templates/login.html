@@ -44,6 +44,7 @@
                         <small class="form-text text-muted ml-1">Don't have an account？<a href="{% url 'users:register' %}" style="color: cornflowerblue; ">Register new account</a>
                         </small>
                     </div>
+                    <small class="form-text text-muted ml-1" v-show="mobile_error" >[[mobile_error_message]]</small>
                     <div class="form-group mb-1">
                         <label for="id_password">Password:</label>
                         <input type="password" name="password" placeholder="Please enter your password" required id="id_password" class="form-control" v-model="password" @blur="check_password"/>
