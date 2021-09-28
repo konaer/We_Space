@@ -207,3 +207,15 @@ LOGIN_URL = '/login/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # 图片的统一路由
 MEDIA_URL = '/media/'
+
+# Email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS   = True
+#发送邮件的邮箱
+EMAIL_HOST_USER = 'kong.smsforweb@gmail.com'
+#在邮箱中设置的客户端授权密码
+EMAIL_HOST_PASSWORD = 'roclejgilqhfjwmg'
+#收件人看到的发件人
+EMAIL_FROM = 'We Space! Place for you <kong.smsforweb@gmail.com>'

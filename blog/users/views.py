@@ -31,7 +31,7 @@ class RegisterView(View):
         if not all([mobile, password, password2, smscode]):
             return HttpResponseBadRequest('One or more parameters missing, please go back and re-try')
         # 判断手机号是否合法
-        if not re.match(r'^1[3-9]\d{9}$', mobile):
+        if not re.match(r'^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$', mobile):
             return HttpResponseBadRequest('Please enter correct email and re-try')
         # 判断密码是否是6-20个数字
         if not re.match(r'^[0-9A-Za-z]{6,20}$', password):
@@ -90,7 +90,7 @@ class LoginView(View):
             return HttpResponseBadRequest('one or more parameters missing, please re-try')
 
         # 判断手机号是否正确
-        if not re.match(r'^1[3-9]\d{9}$', mobile):
+        if not re.match(r'^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$', mobile):
             return HttpResponseBadRequest('Please enter correct email and re-try')
 
         # 判断密码是否是6-20个数字
@@ -165,7 +165,7 @@ class ForgetPasswordView(View):
             return HttpResponseBadRequest('one or more parameters missing, please re-try')
 
         # 判断手机号是否合法
-        if not re.match(r'^1[3-9]\d{9}$', mobile):
+        if not re.match(r'^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$', mobile):
             return HttpResponseBadRequest('Please enter a correct email and re-try')
 
         # 判断密码是否是8-20个数字
@@ -230,8 +230,11 @@ class ImageCodeView(View):
 from django.http import JsonResponse
 from utils.response_code import RETCODE
 from random import randint
-from libs.yuntongxun.sms import CCP
+# from libs.yuntongxun.sms import CCP
+from django.conf import settings
+from django.core.mail import send_mail
 import logging
+
 logger=logging.getLogger('django')
 
 class SmsCodeView(View):
@@ -270,7 +273,16 @@ class SmsCodeView(View):
         # 保存短信验证码到redis中，并设置有效期
         redis_conn.setex('sms:%s' % mobile, 1800, sms_code)
         # 发送短信验证码
-        CCP().send_template_sms(mobile, [sms_code, 5],1)
+        # CCP().send_template_sms(mobile, [sms_code, 5],1)
+
+        # Send Email
+        subject = "We Space SMS verification code"
+        message = f'Welcome to We Space! \n Your SMS verification code is {sms_code}.'
+
+        try:
+            send_mail(subject, message, settings.EMAIL_FROM, [mobile])
+        except Exception as e:
+            logger.error(e)
 
         # 响应结果
         return JsonResponse({'code': RETCODE.OK, 'errmsg': 'SMS code sent successfully'})
