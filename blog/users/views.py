@@ -93,8 +93,8 @@ class LoginView(View):
         if not re.match(r'^1[3-9]\d{9}$', mobile):
             return HttpResponseBadRequest('Please enter correct email and re-try')
 
-        # 判断密码是否是8-20个数字
-        if not re.match(r'^[0-9A-Za-z]{8,20}$', password):
+        # 判断密码是否是6-20个数字
+        if not re.match(r'^[0-9A-Za-z]{6,20}$', password):
             return HttpResponseBadRequest('Password must 6 to 20 digits long, please re-try')
 
         # 认证登录用户
