@@ -26,7 +26,6 @@
     </li>
     <li><a href="#front-end">Front end</a></li>
     <li><a href="#back-end">Back end</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
@@ -36,8 +35,9 @@
 ## About the project
 
 We Space is a full stack website project. 
-This website is aimed at providing an online space for the SDE community to post and share their ideas about different techs. 
-Please check the demo video for detail functions. This is a step by step full stack project, the front end framwork is Vue, and the back end framwork is Django. Many other techs are also used in this project, please see belwo sections for details.
+This website is aimed at providing a communication platform, an online space for the SDE community to post and share their ideas about different techs.Please check the demo video for detail functions.
+
+This is a step by step full stack project, the front end framework is Vue, and the back end framework is Django. Many other techs are also used in this project, please see below sections for details.
 
 ## Project modules and functions
 
