@@ -54,17 +54,20 @@ This is a step by step full stack project, the front end framework is Vue, and t
 ## Front end
 
 * Bootstrap
+As the CSS framework
 * Captcha\
 To make photo verification code
+* Prism\
+To make highlight labels 
 * Jquery\
-To design and render pagination
+As part of the JS to design and render pagination
 * Axios\
 Use promise API to make XMLHttpRequests
 * Vue\
 As the front end framework to handle DOM
 
 ## Back end
-* Use Django as back end framework
+* Use Django as the core back end framework
 * Use MySQL as database
 * Use Redis as cache to accelerate user query speed
 * Use Redis as message queue to async send verification code
