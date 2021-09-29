@@ -16,7 +16,7 @@ class ArticleCategory(models.Model):
 
     class Meta:
         db_table='tb_category'
-        verbose_name = '类别管理'
+        verbose_name = 'category management'
         verbose_name_plural = verbose_name
 
 # Article model
