@@ -53,7 +53,7 @@ This is a step by step full stack project, the front end framework is Vue, and t
 
 ## Front end
 
-* Bootstrap
+* Bootstrap\
 As the CSS framework
 * Captcha\
 To make photo verification code
