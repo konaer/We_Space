@@ -22,7 +22,7 @@
       <a href="#about-the-project">About the project</a>
     </li>
     <li>
-      <a href="#getting-started">Project modules and functions</a>
+      <a href="#project-modules-and-functions">Project modules and functions</a>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
