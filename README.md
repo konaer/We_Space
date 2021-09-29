@@ -77,5 +77,5 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Edward Kong - [@LinkedIn](www.linkedin.com/in/edwardkong123) - dejingk@gmail.com
+Edward Kong - [@LinkedIn](https://www.linkedin.com/in/edwardkong123/) - dejingk@gmail.com
 
