@@ -276,13 +276,8 @@ class SmsCodeView(View):
         # CCP().send_template_sms(mobile, [sms_code, 5],1)
 
         # Send Email
-        subject = "We Space SMS verification code"
-        message = f'Welcome to We Space! \n Your SMS verification code is {sms_code}.'
-
-        try:
-            send_mail(subject, message, settings.EMAIL_FROM, [mobile])
-        except Exception as e:
-            logger.error(e)
+        from celery_tasks.sms.tasks import celery_send_email
+        celery_send_email.delay(sms_code, mobile)
 
         # 响应结果
         return JsonResponse({'code': RETCODE.OK, 'errmsg': 'SMS code sent successfully'})
