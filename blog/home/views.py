@@ -17,7 +17,7 @@ class IndexView(View):
         try:
             category = ArticleCategory.objects.get(id=cat_id)
         except ArticleCategory.DoesNotExist:
-            return HttpResponseNotFound('No such category')
+            return HttpResponseNotFound('No categories, creat category first.')
 
         # 获取博客分类信息
         categories = ArticleCategory.objects.all()
