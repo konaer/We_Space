@@ -7,7 +7,7 @@
     <a href="https://github.com/konaer/my_blog/"><strong>Explore the source code »</strong></a>
     <br />
     <br />
-    <a href="https://www.youtube.com/">View Demo</a>
+    <a href="http://www.konaer.tk/">Go to We Space</a>
     ·
     <a href="https://github.com/konaer/my_blog/issues">Report Bug</a>
   </p>
